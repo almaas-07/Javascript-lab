@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping list example</title>
+    <style>
+      li {
+        margin-bottom: 10px;
+      }
+
+      li button {
+        font-size: 12px;
+        margin-left: 20px;
+        color: #666;
+      }
+    </style>
+  </head>
+  <body>
+
+    <h1>My shopping list</h1>
+
+    <div>
+      <label for="item">Enter a new item:</label>
+      <input type="text" name="item" id="item">
+      <button>Add item</button>
+    </div>
+
+    <ul>
+      <!-- List items will be added here -->
+    </ul>
+
+    <script>
+      // Create variables for the list, input, and button elements
+      const list = document.querySelector('ul');
+      const input = document.querySelector('#item');
+      const button = document.querySelector('button');
+
+      // Function to run when the button is clicked
+      function addItem() {
+        // Store the current value of the input element in a variable
+        const itemValue = input.value;
+
+        // Check if input is not empty
+        if (itemValue.trim() === '') {
+          return; // Exit if the input is empty
+        }
+
+        // Clear the input element
+        input.value = '';
+
+        // Create new elements
+        const listItem = document.createElement('li');
+        const span = document.createElement('span');
+        const deleteButton = document.createElement('button');
+
+        // Set text content
+        span.textContent = itemValue;
+        deleteButton.textContent = 'Delete';
+
+        // Append the span and button to the list item
+        listItem.appendChild(span);
+        listItem.appendChild(deleteButton);
+
+        // Append the list item to the list
+        list.appendChild(listItem);
+
+        // Attach an event handler to the delete button
+        deleteButton.addEventListener('click', function() {
+          listItem.remove();
+        });
+
+        // Focus the input element ready for the next item
+        input.focus();
+      }
+
+      // Attach the addItem function to the button's click event
+      button.addEventListener('click', addItem);
+
+      // Optional: Allow pressing "Enter" to add an item
+      input.addEventListener('keypress', function(event) {
+        if (event.key === 'Enter') {
+          addItem();
+        }
+      });
+    </script>
+  </body>
+</html>
